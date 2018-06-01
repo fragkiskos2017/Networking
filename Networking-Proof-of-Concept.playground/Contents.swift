@@ -174,7 +174,11 @@ struct Decoder {
 
     func decodeAndComplete<T: Decodable>(_ type: T.Type, from data: Data?, completion: @escaping (Result<T>) -> Void) {
         if data != nil {
-            let response = try! JSONDecoder().decode(T.self, from: data!)
+			do {
+				let response = try JSONDecoder().decode(T.self, from: data!)
+			} catch {
+				completion(.failure(error))
+			}
             completion(.success(response))
         } else {
             completion(.failure(Error.invalidResponse))
