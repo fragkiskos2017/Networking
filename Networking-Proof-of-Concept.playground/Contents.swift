@@ -209,11 +209,12 @@ final class GetMarketingPermissionRequest: Request {
 
 // MARK: - Singleton API example
 
+/// Facade for all API requests
 final class API {
 	static let shared = API()
 
 	private let plugins: [Plugin] = [NetworkLoggerPlugin(), NetworkActivityPlugin()]
-	private var networking: NetworkingType = Networking(plugins: plugins)
+	private lazy var networking: NetworkingType = Networking(plugins: plugins)
 	private let decoder = Decoder()
 
 	var isDemoUser: Bool = false {
